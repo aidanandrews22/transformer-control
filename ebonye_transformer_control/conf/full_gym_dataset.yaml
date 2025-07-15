@@ -4,9 +4,9 @@ inherit:
 model:
     n_dims: 4  # cartpole has 4 state dimensions
     n_positions: 1024
-    n_embd: 256
-    n_layer: 12
-    n_head: 8
+    n_embd: 128    # Reduced embedding dimension
+    n_layer: 6     # Reduced number of layers
+    n_head: 4      # Reduced number of heads
 
 training:
     task: linear_regression   # Not used, but required by schema

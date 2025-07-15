@@ -1,0 +1,21 @@
+num_training_steps: 46
+Starting epoch 1/3
+Training Chunk 1/10:   0%|                                                                                                                                                                                                                                            | 0/100 [00:00<?, ?it/s]
+Chunk Progress:   0%|                                                                                                                                                                                                                                                  | 0/10 [00:00<?, ?it/s]
+loaded chunk 1/10
+Traceback (most recent call last):
+  File "/home/aidan/Code/Work/berkeley/transformer-control/ebonye_transformer_control/trainSequential_ebonye_cartpole.py", line 670, in <module>
+    main(args)
+    ~~~~^^^^^^
+  File "/home/aidan/Code/Work/berkeley/transformer-control/ebonye_transformer_control/trainSequential_ebonye_cartpole.py", line 648, in main
+    train(model, args)
+    ~~~~~^^^^^^^^^^^^^
+  File "/home/aidan/Code/Work/berkeley/transformer-control/ebonye_transformer_control/trainSequential_ebonye_cartpole.py", line 484, in train
+    loss, output, gradnorm, oldgradnorm = train_step(model, xs, ys, optimizer, loss_function, current_step, args, num_training_steps)
+                                          ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/aidan/Code/Work/berkeley/transformer-control/ebonye_transformer_control/trainSequential_ebonye_cartpole.py", line 103, in train_step
+    loss_controls = loss_func(output_controls.squeeze()[:,:-1], ys_scaled)
+  File "/home/aidan/Code/Work/berkeley/transformer-control/ebonye_transformer_control/tasks.py", line 10, in mean_squared_error
+    return (ys - ys_pred).square().mean()
+            ~~~^~~~~~~~~
+RuntimeError: The size of tensor a (128) must match the size of tensor b (127) at non-singleton dimension 1

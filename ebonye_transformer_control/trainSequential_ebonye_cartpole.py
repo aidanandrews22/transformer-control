@@ -100,7 +100,7 @@ def train_step(model, xs, ys, optimizer, loss_func, i, args, numtrainingsteps, b
 
     
 
-    loss_controls = loss_func(output_controls.squeeze()[:,:-1], ys_scaled)
+    loss_controls = loss_func(output_controls.squeeze()[:,:-1], ys_scaled[:,:-1])
     # loss_controls = loss_func(output_controls.squeeze()[:,:-1], ys_scaled[..., 0])
     
 
@@ -283,6 +283,9 @@ def evaluate_model(model, id_data, loss_func):
             # print(f"ys: {ys.size()}")
             xs = torch.squeeze(xs).transpose(1, 2)  # (batch_size, 4, n_points) -> (batch_size, n_points, 4)
             ys = torch.squeeze(ys)
+            # Truncate sequences to max 128 timesteps
+            xs = xs[:, :128] if xs.shape[1] > 128 else xs
+            ys = ys[:, :128] if ys.shape[1] > 128 else ys
 
             # import pdb; pdb.set_trace()
             # xs_scaled = batch_scaling(xs)
@@ -309,7 +312,7 @@ def evaluate_model(model, id_data, loss_func):
             # loss_states = loss_func(output_states, xs)
             # loss_states = loss_func(output_states[:-1], xs_scaled[1:])
 
-            loss_controls = loss_func(output_controls.squeeze()[:,:-1], ys_scaled)
+            loss_controls = loss_func(output_controls.squeeze()[:,:-1], ys_scaled[:,:-1])
     
 
             loss_states = loss_func(output_states[:,:-1], xs_scaled[:,1:])
@@ -441,8 +444,11 @@ def train(model, args):
                 # for xs, ys, mass, length in dataset_full:
                 for xs, ys, cartmass, polemass, polelength in dataset_full:
                     device = torch.device('cuda')
-                    all_xs.append(torch.tensor(xs).transpose(1, 2).to(device))  # (batch_size, 4, n_points) -> (batch_size, n_points, 4)
-                    all_ys.append(torch.tensor(ys).to(device))
+                    # Truncate sequences to max 128 timesteps
+                    xs_truncated = xs[:, :, :128] if xs.shape[2] > 128 else xs
+                    ys_truncated = ys[:, :128] if ys.shape[1] > 128 else ys
+                    all_xs.append(torch.tensor(xs_truncated).transpose(1, 2).to(device))  # (batch_size, 4, n_points) -> (batch_size, n_points, 4)
+                    all_ys.append(torch.tensor(ys_truncated).to(device))
                     # all_masses.append(torch.tensor(mass))
                     # all_lengths.append(torch.tensor(length))
                     all_cartmasses.append(torch.tensor(cartmass).to(device))
