@@ -1,0 +1,10 @@
+**/models/test
+**/models/cartpole
+**/inference_run/
+**/__pycache__/
+
+**/Gymnasium/
+**/logs/
+**/output/
+**/videos/
+videos/
