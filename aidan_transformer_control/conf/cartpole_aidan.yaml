@@ -1,0 +1,53 @@
+out_dir: "output/cartpole_aidan"
+dataset_filesfolder: "dataset_cartpole_aidan"
+pickle_folder: "."
+pickle_folder_test: "test"
+pickle_folder_test_outofdistr: "test_ood"
+dataset_logger_textfile: "dataset_log.txt"
+dataset_test_logger_textfile: "dataset_test_log.txt"
+dataset_test_outofdistr_logger_textfile: "dataset_test_ood_log.txt"
+model_logger_textfile: "model_training_log.txt"
+loss: "mean_squared_error"
+use_chunk: 50
+
+model:
+  family: "gpt2"
+  n_positions: 1024  # Maximum trajectory length
+  n_dims: 4         # State dimension [x, x_dot, theta, theta_dot]
+  n_embd: 512       # Large embedding dimension for good capacity
+  n_layer: 16       # Deep network for complex control patterns
+  n_head: 16        # Multi-head attention for rich representations
+
+training:
+  task: linear_regression  # Task type for the training framework
+  data: gaussian
+  task_kwargs: {}
+  epochs: 1000         # Extended epochs for full convergence
+  batch_size: 16       # Smaller batch size for large model and memory efficiency
+  learning_rate: 0.0001 # Conservative learning rate for stability
+  save_every_steps: 250  # Regular checkpointing
+  keep_every_steps: 1000 # Permanent checkpoints
+  train_steps: 10000000  # Extended training steps for full convergence
+  test_pendulums: 1
+  test_pendulums_outofdistr: 1
+  resume_id: null
+  curriculum:
+    dims:
+      start: 2
+      end: 4           # Full state dimension
+      inc: 1
+      interval: 1000000 # Gradual curriculum progression
+    points:
+      start: 300
+      end: 1000
+      inc: 50
+      interval: 2000000 # Gradual trajectory length increase
+
+wandb:
+  project: "cartpole-control-full"
+  entity: "aidansa"
+  notes: "CartPole swing-up control - Full Production Training Run with Large GPT-2 Model"
+  name: "cartpole_aidan_production_v1"
+  log_every_steps: 100   # Detailed logging for monitoring
+
+test_run: false 
