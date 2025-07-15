@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/aidan/Code/Work/berkeley/transformer-control/ebonye_transformer_control/trainSequential_ebonye_cartpole.py", line 663, in <module>
+    main(args)
+    ~~~~^^^^^^
+  File "/home/aidan/Code/Work/berkeley/transformer-control/ebonye_transformer_control/trainSequential_ebonye_cartpole.py", line 641, in main
+    train(model, args)
+    ~~~~~^^^^^^^^^^^^^
+  File "/home/aidan/Code/Work/berkeley/transformer-control/ebonye_transformer_control/trainSequential_ebonye_cartpole.py", line 367, in train
+    raise ValueError(f"Unknown loss function: {loss_function_name}")
+ValueError: Unknown loss function: mse

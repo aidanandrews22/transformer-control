@@ -1,0 +1,139 @@
+_wandb:
+    value:
+        cli_version: 0.21.0
+        e:
+            fvqbw5xod3byeswxd4p2l72mpu2rtyhv:
+                args:
+                    - --config
+                    - conf/full_gym_dataset.yaml
+                codePath: ebonye_transformer_control/trainSequential_ebonye_cartpole.py
+                codePathLocal: trainSequential_ebonye_cartpole.py
+                cpu_count: 16
+                cpu_count_logical: 32
+                cudaVersion: "12.9"
+                disk:
+                    /:
+                        total: "52521566208"
+                        used: "20818477056"
+                email: aidanandrews0@gmail.com
+                executable: /home/aidan/pyenvs/berk/bin/python
+                git:
+                    commit: da383ee817125865becaeb46875b939c1f0ebdd7
+                    remote: https://github.com/aidanandrews22/transformer-control.git
+                gpu: NVIDIA GeForce RTX 4090
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Ada
+                      cudaCores: 16384
+                      memoryTotal: "25757220864"
+                      name: NVIDIA GeForce RTX 4090
+                      uuid: GPU-d0b4185b-ce7e-69b0-6f1d-10b706672286
+                host: aidan-pc
+                memory:
+                    total: "32701743104"
+                os: Linux-6.15.6-arch1-1-x86_64-with-glibc2.41
+                program: /home/aidan/Code/Work/berkeley/transformer-control/ebonye_transformer_control/trainSequential_ebonye_cartpole.py
+                python: CPython 3.13.5
+                root: ./output_gym_full/e12f4d0d-4f85-4991-af3f-47bdf8b2658a
+                startedAt: "2025-07-15T18:40:46.203479Z"
+                writerId: fvqbw5xod3byeswxd4p2l72mpu2rtyhv
+        m: []
+        python_version: 3.13.5
+        t:
+            "1":
+                - 1
+                - 5
+                - 6
+                - 9
+                - 11
+                - 49
+                - 53
+                - 103
+            "2":
+                - 1
+                - 5
+                - 6
+                - 9
+                - 11
+                - 49
+                - 53
+                - 103
+            "3":
+                - 13
+                - 14
+                - 16
+            "4": 3.13.5
+            "5": 0.21.0
+            "6": 4.53.2
+            "12": 0.21.0
+            "13": linux-x86_64
+config:
+    value: conf/full_gym_dataset.yaml
+dataset_filesfolder:
+    value: ./dataset_cartpole_gym_full
+dataset_logger_textfile:
+    value: dataset_logger_train.txt
+dataset_test_logger_textfile:
+    value: dataset_logger_test.txt
+dataset_test_outofdistr_logger_textfile:
+    value: dataset_logger_test_ood.txt
+inherit:
+    value:
+        - /home/aidan/Code/Work/berkeley/transformer-control/ebonye_transformer_control/conf/models/standard.yaml
+loss:
+    value: mean_squared_error
+model:
+    value:
+        family: gpt2
+        n_dims: 4
+        n_embd: 256
+        n_head: 8
+        n_layer: 12
+        n_positions: 1024
+model_logger_textfile:
+    value: model_logger.txt
+out_dir:
+    value: ./output_gym_full/e12f4d0d-4f85-4991-af3f-47bdf8b2658a
+pickle_folder:
+    value: picklefolder
+pickle_folder_test:
+    value: picklefolder_test
+pickle_folder_test_outofdistr:
+    value: picklefolder_test_outofdistr
+test_run:
+    value: false
+training:
+    value:
+        batch_size: 64
+        curriculum:
+            dims:
+                end: 4
+                inc: 1
+                interval: 200000000000
+                start: 4
+            points:
+                end: 560
+                inc: 1
+                interval: 2000000000000
+                start: 560
+        data: gaussian
+        epochs: 3
+        keep_every_steps: 5000
+        learning_rate: 0.0001
+        num_tasks: null
+        num_training_examples: null
+        resume_id: null
+        save_every_steps: 1000
+        task: linear_regression
+        test_pendulums: 50
+        test_pendulums_outofdistr: 0
+        train_steps: 1000
+use_chunk:
+    value: 10
+wandb:
+    value:
+        entity: aidansa
+        log_every_steps: 100
+        name: full_gym_cartpole_training
+        notes: Full dataset generation and training with gym environment and swingup_lqr_controller
+        project: cartpole-control-full

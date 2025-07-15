@@ -1,0 +1,44 @@
+{
+  "os":  "Linux-6.15.6-arch1-1-x86_64-with-glibc2.41",
+  "python":  "CPython 3.13.5",
+  "startedAt":  "2025-07-15T18:27:42.497952Z",
+  "args":  [
+    "--config",
+    "conf/full_gym_dataset.yaml"
+  ],
+  "program":  "/home/aidan/Code/Work/berkeley/transformer-control/ebonye_transformer_control/trainSequential_ebonye_cartpole.py",
+  "codePath":  "ebonye_transformer_control/trainSequential_ebonye_cartpole.py",
+  "codePathLocal":  "trainSequential_ebonye_cartpole.py",
+  "git":  {
+    "remote":  "https://github.com/aidanandrews22/transformer-control.git",
+    "commit":  "da383ee817125865becaeb46875b939c1f0ebdd7"
+  },
+  "email":  "aidanandrews0@gmail.com",
+  "root":  "./output_gym_full/64c2ace2-0ac6-412d-aeac-ff4acddf5c4f",
+  "host":  "aidan-pc",
+  "executable":  "/home/aidan/pyenvs/berk/bin/python",
+  "cpu_count":  16,
+  "cpu_count_logical":  32,
+  "gpu":  "NVIDIA GeForce RTX 4090",
+  "gpu_count":  1,
+  "disk":  {
+    "/":  {
+      "total":  "52521566208",
+      "used":  "20629499904"
+    }
+  },
+  "memory":  {
+    "total":  "32701743104"
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "NVIDIA GeForce RTX 4090",
+      "memoryTotal":  "25757220864",
+      "cudaCores":  16384,
+      "architecture":  "Ada",
+      "uuid":  "GPU-d0b4185b-ce7e-69b0-6f1d-10b706672286"
+    }
+  ],
+  "cudaVersion":  "12.9",
+  "writerId":  "coifl3dfkiqaf08bbslzb4k6as54re1a"
+}

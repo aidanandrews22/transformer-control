@@ -1,0 +1,65 @@
+num_training_steps: 750
+Starting epoch 1/3
+Training Chunk 1/10:   0%|                                                                                                                                                                                                                         | 0/100 [00:00<?, ?it/s]
+Chunk Progress:   0%|                                                                                                                                                                                                                               | 0/10 [00:00<?, ?it/s]
+loaded chunk 1/10
+Traceback (most recent call last):
+  File "/home/aidan/Code/Work/berkeley/transformer-control/ebonye_transformer_control/trainSequential_ebonye_cartpole.py", line 664, in <module>
+    main(args)
+    ~~~~^^^^^^
+  File "/home/aidan/Code/Work/berkeley/transformer-control/ebonye_transformer_control/trainSequential_ebonye_cartpole.py", line 642, in main
+    train(model, args)
+    ~~~~~^^^^^^^^^^^^^
+  File "/home/aidan/Code/Work/berkeley/transformer-control/ebonye_transformer_control/trainSequential_ebonye_cartpole.py", line 478, in train
+    loss, output, gradnorm, oldgradnorm = train_step(model, xs, ys, optimizer, loss_function, current_step, args, num_training_steps)
+                                          ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/aidan/Code/Work/berkeley/transformer-control/ebonye_transformer_control/trainSequential_ebonye_cartpole.py", line 93, in train_step
+    output_controls, output_states = model(xs_scaled, ys_scaled)
+                                     ~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/aidan/pyenvs/berk/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/aidan/pyenvs/berk/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/aidan/Code/Work/berkeley/transformer-control/ebonye_transformer_control/models.py", line 282, in forward
+    output = self._backbone(inputs_embeds=zs).last_hidden_state
+             ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/aidan/pyenvs/berk/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/aidan/pyenvs/berk/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/aidan/pyenvs/berk/lib/python3.13/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 917, in forward
+    outputs = block(
+        hidden_states,
+    ...<8 lines>...
+        **kwargs,
+    )
+  File "/home/aidan/pyenvs/berk/lib/python3.13/site-packages/transformers/modeling_layers.py", line 83, in __call__
+    return super().__call__(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/aidan/pyenvs/berk/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/aidan/pyenvs/berk/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/aidan/pyenvs/berk/lib/python3.13/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/home/aidan/pyenvs/berk/lib/python3.13/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 440, in forward
+    feed_forward_hidden_states = self.mlp(hidden_states)
+  File "/home/aidan/pyenvs/berk/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/aidan/pyenvs/berk/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/aidan/pyenvs/berk/lib/python3.13/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 366, in forward
+    hidden_states = self.act(hidden_states)
+  File "/home/aidan/pyenvs/berk/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/aidan/pyenvs/berk/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/aidan/pyenvs/berk/lib/python3.13/site-packages/transformers/activations.py", line 47, in forward
+    return 0.5 * input * (1.0 + torch.tanh(math.sqrt(2.0 / math.pi) * (input + 0.044715 * torch.pow(input, 3.0))))
+                                                                                          ~~~~~~~~~^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 280.00 MiB. GPU 0 has a total capacity of 23.52 GiB of which 141.69 MiB is free. Including non-PyTorch memory, this process has 23.35 GiB memory in use. Of the allocated memory 22.80 GiB is allocated by PyTorch, and 106.86 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

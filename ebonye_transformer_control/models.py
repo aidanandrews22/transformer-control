@@ -104,7 +104,7 @@ class TransformerModel(nn.Module):
         # self.time_embedding = nn.Embedding(300, n_embd) #linear system
         self.time_embedding = nn.Embedding(560, n_embd) #cartpole
         self.state_embedding = nn.Linear(n_dims, n_embd)
-        self.control_embedding = nn.Linear(1, n_embd)
+        self.control_embedding = nn.Linear(2, n_embd)
         # self.switch_embedding = nn.Embedding(2, n_embd)  # add embedding for switching controller for cartpole
         # self.control_embedding = nn.Linear(2, n_embd)  # add label for switching controller for cartpole
 

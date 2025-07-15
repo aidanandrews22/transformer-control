@@ -1,0 +1,54 @@
+config: conf/full_gym_dataset.yaml
+dataset_filesfolder: ./dataset_cartpole_gym_full
+dataset_logger_textfile: dataset_logger_train.txt
+dataset_test_logger_textfile: dataset_logger_test.txt
+dataset_test_outofdistr_logger_textfile: dataset_logger_test_ood.txt
+inherit:
+- /home/aidan/Code/Work/berkeley/transformer-control/ebonye_transformer_control/conf/models/standard.yaml
+loss: mean_squared_error
+model:
+  family: gpt2
+  n_dims: 4
+  n_embd: 256
+  n_head: 8
+  n_layer: 12
+  n_positions: 1024
+model_logger_textfile: model_logger.txt
+out_dir: ./output_gym_full/b82f702b-613e-4b64-b7c1-c2f39793b510
+pickle_folder: picklefolder
+pickle_folder_test: picklefolder_test
+pickle_folder_test_outofdistr: picklefolder_test_outofdistr
+test_run: false
+training:
+  batch_size: 64
+  curriculum:
+    dims:
+      end: 4
+      inc: 1
+      interval: 200000000000
+      start: 4
+    points:
+      end: 560
+      inc: 1
+      interval: 2000000000000
+      start: 560
+  data: gaussian
+  epochs: 3
+  keep_every_steps: 5000
+  learning_rate: 0.0001
+  num_tasks: null
+  num_training_examples: null
+  resume_id: null
+  save_every_steps: 1000
+  task: linear_regression
+  task_kwargs: {}
+  test_pendulums: 50
+  test_pendulums_outofdistr: 0
+  train_steps: 1000
+use_chunk: 10
+wandb:
+  entity: aidansa
+  log_every_steps: 100
+  name: full_gym_cartpole_training
+  notes: Full dataset generation and training with gym environment and swingup_lqr_controller
+  project: cartpole-control-full

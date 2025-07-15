@@ -1,6 +1,6 @@
 import os
 # os.environ["CUDA_VISIBLE_DEVICES"] = "3"
-os.environ["CUDA_VISIBLE_DEVICES"] = "2,3"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 from random import randint
 import uuid
 from quinine import QuinineArgumentParser
@@ -281,7 +281,7 @@ def evaluate_model(model, id_data, loss_func):
         with torch.no_grad():
             # print(f"xs: {xs.size()}")
             # print(f"ys: {ys.size()}")
-            xs = torch.squeeze(xs)
+            xs = torch.squeeze(xs).transpose(1, 2)  # (batch_size, 4, n_points) -> (batch_size, n_points, 4)
             ys = torch.squeeze(ys)
 
             # import pdb; pdb.set_trace()
@@ -440,13 +440,14 @@ def train(model, args):
 
                 # for xs, ys, mass, length in dataset_full:
                 for xs, ys, cartmass, polemass, polelength in dataset_full:
-                    all_xs.append(xs)
-                    all_ys.append(ys)
+                    device = torch.device('cuda')
+                    all_xs.append(torch.tensor(xs).transpose(1, 2).to(device))  # (batch_size, 4, n_points) -> (batch_size, n_points, 4)
+                    all_ys.append(torch.tensor(ys).to(device))
                     # all_masses.append(torch.tensor(mass))
                     # all_lengths.append(torch.tensor(length))
-                    all_cartmasses.append(torch.tensor(cartmass))
-                    all_polemasses.append(torch.tensor(polemass))
-                    all_polelengths.append(torch.tensor(polelength))
+                    all_cartmasses.append(torch.tensor(cartmass).to(device))
+                    all_polemasses.append(torch.tensor(polemass).to(device))
+                    all_polelengths.append(torch.tensor(polelength).to(device))
 
 
                 
@@ -586,9 +587,7 @@ def main(args):
         )
 
     model = build_model(args.model)
-    device_ids = [0,1]
-    model = torch.nn.DataParallel(model, device_ids=device_ids)
-    model = model.to('cuda:0')
+    model = model.to('cuda')
     # model.cuda()
 
 
