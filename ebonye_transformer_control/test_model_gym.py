@@ -54,7 +54,7 @@ def load_model(run_path, epoch=3, step=3000):
     model.to(device)
     return model, conf, device
 
-def run_model_episode(model, device, env, initial_state, max_steps=500, context_length=10):
+def run_model_episode(model, device, env, initial_state, max_steps=500, context_length=560):
     """
     Run a single episode using the trained model for control prediction.
     Uses a rolling window of past states/controls as context.
@@ -170,10 +170,11 @@ def plot_comparison(model_results, lqr_results, save_path="comparison.png"):
 
 def main():
     # Configuration
-    run_path = "./output_gym_full/5bb7f256-6136-4fe6-a4af-5fc369080866/"
+    # run_path = "./output_gym_full/5bb7f256-6136-4fe6-a4af-5fc369080866/"
+    run_path = "./output_gym_full/cf6e284b-99f0-4623-a641-04e3c402cc37/"
     
     # Load trained model
-    model, conf, device = load_model(run_path, epoch=3, step=3000)
+    model, conf, device = load_model(run_path, epoch=100, step=100000)
     
     # Environment parameters (should match training data)
     cartmass = 2.0
@@ -187,12 +188,15 @@ def main():
         length=polelength,
         render_mode="rgb_array"
     )
+
+    if hasattr(env, 'screen_width'):
+        env.screen_width = 1200  # Make wider
     
     # Test initial condition (inverted pendulum)
     initial_state = [0.0, 0.0, np.pi, 0.0]  # [x, x_dot, theta, theta_dot]
     
     print("Running transformer model episode...")
-    model_results = run_model_episode(model, device, env, initial_state)
+    model_results = run_model_episode(model, device, env, initial_state, context_length=560)
     model_states, model_controls, model_modes, model_rewards, model_frames = model_results
     
     print(f"Model episode: {len(model_states)} steps, total reward: {sum(model_rewards):.2f}")
