@@ -1,0 +1,21 @@
+crocoddyl
+funcy
+gym
+gymnasium
+imageio
+ipdb
+matplotlib
+munch
+numpy
+pandas
+pygame
+pytorch_lightning
+PyYAML
+# quinine
+scikit_learn
+scipy
+torch
+tqdm
+transformers
+wandb
+xgboost

@@ -1,0 +1,56 @@
+inherit: 
+    - models/standard.yaml
+
+model:
+    n_dims: 4  # cartpole has 4 state dimensions
+    n_positions: 1024
+    n_embd: 256    # Optimal embedding size for memory constraints
+    n_layer: 10     # Try one more layer
+    n_head: 8      # More attention heads for richer representations
+
+training:
+    task: linear_regression   # Not used, but required by schema
+    data: gaussian            # Not used, but required by schema
+    task_kwargs: {}          # Not used, but required by schema
+    epochs: 100                # Multiple epochs for thorough training
+    batch_size: 768            # Use more VRAM for better gradient estimates  
+    learning_rate: 0.0003      # Higher LR for larger model
+    save_every_steps: 1000
+    keep_every_steps: 5000
+    train_steps: 1000        # 1000 training batches = 64,000 trajectories
+    test_pendulums: 50       # 50 test batches = 3,200 test trajectories
+    test_pendulums_outofdistr: 0
+    curriculum:
+        dims:
+            start: 4
+            end: 4
+            inc: 1
+            interval: 200000000000
+        points:
+            start: 560       # Full 560 timesteps per trajectory
+            end: 560
+            inc: 1
+            interval: 2000000000000
+
+wandb:
+    name: "full_gym_cartpole_training"
+    entity: "aidansa"
+    project: "cartpole-control-full"
+    notes: "Full dataset generation and training with gym environment and swingup_lqr_controller"
+    log_every_steps: 100
+
+# Dataset configuration
+dataset_filesfolder: "./dataset_cartpole_gym_full"
+pickle_folder: "picklefolder"
+pickle_folder_test: "picklefolder_test"
+pickle_folder_test_outofdistr: "picklefolder_test_outofdistr"
+dataset_logger_textfile: "dataset_logger_train.txt"
+dataset_test_logger_textfile: "dataset_logger_test.txt"
+dataset_test_outofdistr_logger_textfile: "dataset_logger_test_ood.txt"
+
+# Training configuration
+out_dir: "./output_gym_full"
+loss: "mean_squared_error"
+use_chunk: 10  # Use 10 chunks to manage memory efficiently
+test_run: false
+model_logger_textfile: "model_logger.txt" 
